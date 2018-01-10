@@ -58,7 +58,7 @@ Enter OpenTracing: by offering consistent, expressive, vendor-neutral APIs for p
 
 At the highest level, a trace tells the story of a transaction or workflow as it propagates through a (potentially distributed) system. In OpenTracing, a trace is a directed acyclic graph (DAG) of "spans": named, timed operations representing a contiguous segment of work in that trace.
 
-![DAG example]http://opentracing.io/documentation/images/OTHT_1.png)
+![DAG example](http://opentracing.io/documentation/images/OTHT_1.png)
 
 Each component in a distributed trace will contribute its own span or spans.
 
