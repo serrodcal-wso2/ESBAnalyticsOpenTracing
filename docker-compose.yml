@@ -1,0 +1,82 @@
+version: '2'
+services:
+  mysql:
+    image: openzipkin/zipkin-mysql
+    ports:
+      - 3306:3306
+    networks:
+      - opentracing
+  zipkin:
+    image: openzipkin/zipkin
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=mysql
+      - JAVA_OPTS=-Dlogging.level.zipkin=DEBUG -Dlogging.level.zipkin2=DEBUG
+    ports:
+      - 9411:9411
+    networks:
+      - opentracing
+    depends_on:
+      - mysql
+  esb:
+    image: serrodcal/wso2esb-5.0.0
+    build: ./esb
+    volumes:
+      - ./esb:/
+    ports:
+      - 9443:9443
+      - 8280:8280
+      - 8243:8243
+    networks:
+      - opentracing
+    depends_on:
+      - mysql
+      - zipkin
+  publisher:
+    image: serrodcal/opentracing-publisher
+    build: ./publisher
+    volumes:
+      - ./publisher/server.yml:/server.yml
+      - ./publisher/target/java-docker-opentracing-poc-publisher-1.0-SNAPSHOT.jar:/java-docker-opentracing-poc-publisher-1.0-SNAPSHOT.jar
+    ports:
+      - 8082:8082
+      - 8087:8087
+    networks:
+      - opentracing
+    depends_on:
+      - mysql
+      - zipkin
+    command: java -jar java-docker-opentracing-poc-publisher-1.0-SNAPSHOT.jar server server.yml
+  formatter:
+    image: serrodcal/opentracing-formatter
+    build: ./formatter
+    volumes:
+      - ./formatter/server.yml:/server.yml
+      - ./formatter/target/java-docker-opentracing-poc-formatter-1.0-SNAPSHOT.jar:/java-docker-opentracing-poc-formatter-1.0-SNAPSHOT.jar
+    ports:
+      - 8081:8081
+      - 8086:8086
+    networks:
+      - opentracing
+    depends_on:
+      - mysql
+      - zipkin
+    command: java -jar java-docker-opentracing-poc-formatter-1.0-SNAPSHOT.jar server server.yml
+  hello:
+    image: serrodcal/opentracing-hello
+    build: ./hello
+    volumes:
+      - ./hello/server.yml:/server.yml
+      - ./hello/target/java-docker-opentracing-poc-hello-1.0-SNAPSHOT.jar:/java-docker-opentracing-poc-hello-1.0-SNAPSHOT.jar
+    ports:
+      - 8080:8080
+      - 8085:8085
+    networks:
+      - opentracing
+    depends_on:
+      - mysql
+      - zipkin
+    command: java -jar java-docker-opentracing-poc-hello-1.0-SNAPSHOT.jar server server.yml
+networks:
+  opentracing:
+    driver: bridge
