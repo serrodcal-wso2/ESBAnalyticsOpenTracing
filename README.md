@@ -50,7 +50,7 @@ $ curl 'http://localhost:8080/hello?helloTo=Sergio&greeting=Hola'
 
 ## Regarding custom observer
 
-_Under construction_.
+For more information, go to [project repository](https://github.com/serrodcal/esb-zipkin-opentracing-custom-publisher).
 
 # Regarding OpenTracing
 
