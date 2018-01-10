@@ -52,7 +52,7 @@ $ curl 'http://localhost:8080/hello?helloTo=Sergio&greeting=Hola'
 
 For more information, go to [project repository](https://github.com/serrodcal/esb-zipkin-opentracing-custom-publisher).
 
-# Regarding OpenTracing
+## Regarding OpenTracing
 
 Enter OpenTracing: by offering consistent, expressive, vendor-neutral APIs for popular platforms, OpenTracing makes it easy for developers to add (or switch) tracing implementations with an O(1) configuration change. OpenTracing also offers a lingua franca for OSS instrumentation and platform-specific tracing helper libraries.
 
