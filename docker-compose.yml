@@ -21,8 +21,6 @@ services:
   esb:
     image: serrodcal/wso2esb-5.0.0
     build: ./esb
-    volumes:
-      - ./esb:/
     ports:
       - 9443:9443
       - 8280:8280
