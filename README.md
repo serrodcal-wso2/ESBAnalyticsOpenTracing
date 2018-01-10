@@ -43,9 +43,9 @@ To test this services individually, run following commands:
 ```
 $ curl 'http://localhost:8082/publish?helloStr=hi%20there'
 
-$ curl 'http://localhost:8081/format?helloTo=Sergio'
+$ curl 'http://localhost:8082/format?helloTo=Sergio'
 
-$ curl 'http://localhost:8080/hello?helloTo=Sergio&greeting=Hola'
+$ curl 'http://localhost:8082/hello?helloTo=Sergio&greeting=Hola'
 ```
 
 ## Regarding custom observer
