@@ -25,6 +25,7 @@ services:
       - 9443:9443
       - 8280:8280
       - 8243:8243
+      - 19444:19444
     networks:
       - opentracing
     depends_on:
