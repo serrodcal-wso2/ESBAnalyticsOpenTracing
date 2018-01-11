@@ -7,6 +7,13 @@ RUN apt-get update && \
     unzip /opt/wso2esb-5.0.0.zip -d /opt && \
     rm /opt/wso2esb-5.0.0.zip
 
+RUN rm /opt/wso2esb-5.0.0/repository/conf/carbon.xml && \
+    rm /opt/wso2esb-5.0.0/repository/conf/synapse.properties
+
+COPY ./observer/org.serrodcal.custom.publisher.zipkin-opentracing_1.0.jar /opt/wso2esb-5.0.0/repository/components/dropins/
+COPY ./carbon/carbon.xml /opt/wso2esb-5.0.0/repository/conf/carbon.xml
+COPY ./observer/synapse.properties /opt/wso2esb-5.0.0/repository/conf/synapse.properties
+
 EXPOSE 9443 8243 8280
 WORKDIR /opt/wso2esb-5.0.0
 CMD ["bin/wso2server.sh"]
